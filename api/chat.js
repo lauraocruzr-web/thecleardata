@@ -20,7 +20,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+       model: 'claude-sonnet-4-5',
         max_tokens: 1500,
         system: `Eres TheClearData AI, experto en análisis de datos.${toolFocus} Responde siempre en español, con emojis, dando código y fórmulas completas listas para usar.`,
         messages: messages.slice(-12)
