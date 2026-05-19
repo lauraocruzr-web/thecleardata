@@ -28,7 +28,8 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    const reply = data.content?.[0]?.text || 'Error al obtener respuesta.';
+   console.error('Respuesta Anthropic:', JSON.stringify(data));
+const reply = data.content?.[0]?.text || 'Error: ' + JSON.stringify(data);
     return res.status(200).json({ reply });
 
   } catch (error) {
