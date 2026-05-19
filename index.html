@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheClearData — Análisis de Datos con IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#060610;
+  --surface:#0d0d1f;
+  --surface2:#13132a;
+  --surface3:#1a1a35;
+  --border:#1e1e3f;
+  --border2:#2a2a55;
+  --accent:#5b4fff;
+  --accent-light:#7c6dff;
+  --accent-glow:rgba(91,79,255,0.18);
+  --teal:#00e5cc;
+  --teal-dim:rgba(0,229,204,0.12);
+  --rose:#ff5c8a;
+  --gold:#ffd166;
+  --text:#eceef8;
+  --text2:#9092b8;
+  --muted:#454568;
+  --radius:14px;
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:'Bricolage Grotesque',sans-serif;height:100vh;display:flex;flex-direction:column;position:relative}
+
+/* Ambient background */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 0%,rgba(91,79,255,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 40% at 85% 100%,rgba(0,229,204,0.06) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* HEADER */
+.header{
+  background:rgba(13,13,31,0.9);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;height:60px;
+  display:flex;align-items:center;gap:16px;
+  flex-shrink:0;position:relative;z-index:10;
+  backdrop-filter:blur(20px);
+}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{
+  width:36px;height:36px;
+  background:linear-gradient(135deg,var(--accent),var(--teal));
+  border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:17px;box-shadow:0 0 20px rgba(91,79,255,0.35);
+  flex-shrink:0;
+}
+.logo-text{font-size:18px;font-weight:800;letter-spacing:-0.5px}
+.logo-text em{color:var(--accent);font-style:normal}
+.logo-badge{
+  background:linear-gradient(135deg,rgba(91,79,255,0.2),rgba(0,229,204,0.15));
+  border:1px solid rgba(91,79,255,0.3);
+  color:var(--teal);padding:3px 10px;border-radius:20px;
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+}
+.tool-bar{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.tool{
+  background:var(--surface2);border:1px solid var(--border);
+  padding:4px 12px;border-radius:20px;
+  font-size:11px;font-weight:600;color:var(--muted);
+  cursor:pointer;transition:all 0.2s;
+}
+.tool:hover{border-color:var(--accent-light);color:var(--accent-light)}
+.tool.on{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 0 12px rgba(91,79,255,0.4)}
+
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden;position:relative;z-index:1}
+
+/* SIDEBAR */
+.sidebar{
+  width:252px;
+  background:rgba(13,13,31,0.7);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  overflow:hidden;flex-shrink:0;
+  backdrop-filter:blur(10px);
+}
+.sb-inner{flex:1;overflow-y:auto;padding:14px}
+.sb-inner::-webkit-scrollbar{width:2px}
+.sb-inner::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+.s-label{font-size:9px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+
+.btn-new{
+  width:100%;padding:10px;border-radius:10px;
+  background:var(--accent-glow);
+  border:1px solid rgba(91,79,255,0.35);
+  color:var(--accent-light);
+  font-family:'Bricolage Grotesque',sans-serif;
+  font-size:12px;font-weight:700;
+  cursor:pointer;transition:all 0.2s;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.btn-new:hover{background:rgba(91,79,255,0.2);box-shadow:0 0 16px rgba(91,79,255,0.2)}
+
+/* Upload zone */
+.upzone{
+  border:1.5px dashed var(--border2);border-radius:12px;
+  padding:16px 12px;text-align:center;cursor:pointer;
+  transition:all 0.25s;margin-bottom:4px;
+}
+.upzone:hover{border-color:var(--accent);background:var(--accent-glow)}
+.upzone-icon{font-size:22px;margin-bottom:5px}
+.upzone p{font-size:11px;color:var(--muted);line-height:1.5}
+.upzone p strong{color:var(--text2)}
+
+/* Quick buttons */
+.qbtn{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 10px;border-radius:10px;cursor:pointer;
+  transition:all 0.18s;margin-bottom:4px;
+  border:1px solid transparent;
+}
+.qbtn:hover{background:var(--surface2);border-color:var(--border)}
+.qi{font-size:15px;width:22px;text-align:center;flex-shrink:0}
+.qt{font-size:12px;font-weight:600;color:var(--text)}
+.qs{font-size:10px;color:var(--muted)}
+
+/* Level card */
+.lvl-card{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:12px;padding:12px;
+}
+.lvl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.lvl-name{font-size:12px;font-weight:700;color:var(--accent-light)}
+.lvl-pct{font-size:10px;color:var(--muted)}
+.lbar{background:var(--surface3);border-radius:20px;height:4px;overflow:hidden;margin-bottom:10px}
+.lbar-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent),var(--teal));
+  border-radius:20px;width:5%;
+  transition:width 1s cubic-bezier(0.4,0,0.2,1);
+}
+.ach{font-size:11px;color:var(--muted);padding:3px 0;display:flex;align-items:center;gap:5px}
+.ach.done{color:var(--teal)}
+
+/* Section spacing */
+.s-section{margin-bottom:20px}
+
+/* CHAT */
+.chat-area{display:flex;flex-direction:column;flex:1;overflow:hidden}
+.messages{
+  flex:1;overflow-y:auto;
+  padding:24px 32px;
+  display:flex;flex-direction:column;gap:16px;
+}
+.messages::-webkit-scrollbar{width:4px}
+.messages::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+
+/* Welcome */
+.welcome{max-width:600px;margin:24px auto;width:100%}
+.welcome-head{margin-bottom:28px}
+.welcome-head h2{
+  font-size:30px;font-weight:800;letter-spacing:-1px;
+  margin-bottom:10px;
+  background:linear-gradient(135deg,var(--text) 30%,var(--accent-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.welcome-head p{color:var(--text2);font-size:14px;line-height:1.75}
+.sug-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sug{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:14px;cursor:pointer;
+  transition:all 0.2s;position:relative;overflow:hidden;
+}
+.sug::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--accent-glow),transparent);
+  opacity:0;transition:opacity 0.2s;
+}
+.sug:hover{border-color:var(--accent);transform:translateY(-2px)}
+.sug:hover::before{opacity:1}
+.sug-emoji{font-size:20px;margin-bottom:8px}
+.sug-t{font-size:13px;font-weight:700;margin-bottom:4px}
+.sug-s{font-size:11px;color:var(--muted);line-height:1.5}
+
+/* Messages */
+.msg{display:flex;gap:10px;max-width:90%;animation:msgIn 0.3s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.mav{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;margin-top:2px;
+}
+.msg.ai .mav{background:linear-gradient(135deg,var(--accent),var(--teal))}
+.msg.user .mav{background:var(--surface3);border:1px solid var(--border2)}
+.mbub{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:16px;border-top-left-radius:4px;
+  padding:14px 18px;font-size:14px;line-height:1.8;
+}
+.msg.user .mbub{
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  border:none;border-radius:16px;border-top-right-radius:4px;
+  color:#fff;
+}
+.mbub code{
+  background:rgba(0,0,0,0.4);padding:2px 7px;
+  border-radius:5px;font-family:'Space Mono',monospace;
+  font-size:12px;color:var(--teal);
+}
+.mbub pre{
+  background:rgba(0,0,0,0.55);
+  border:1px solid var(--border2);
+  border-left:3px solid var(--accent);
+  border-radius:10px;padding:16px;margin:12px 0;
+  overflow-x:auto;
+}
+.mbub pre code{
+  background:none;padding:0;
+  font-size:12.5px;line-height:1.75;color:#c8d3f5;
+}
+.formula-box{
+  display:block;
+  background:rgba(0,229,204,0.07);
+  border:1px solid rgba(0,229,204,0.2);
+  border-left:3px solid var(--teal);
+  border-radius:8px;padding:10px 14px;margin:10px 0;
+  font-family:'Space Mono',monospace;font-size:12px;color:var(--teal);
+}
+.mbub strong{color:#fff;font-weight:700}
+
+/* Typing */
+.typing-dots{display:flex;align-items:center;gap:5px;padding:4px 0}
+.typing-dots span{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--accent);animation:td 1.3s infinite;
+}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes td{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-8px);opacity:1}}
+
+/* INPUT */
+.input-wrap{
+  background:rgba(13,13,31,0.95);
+  border-top:1px solid var(--border);
+  padding:14px 24px;flex-shrink:0;
+  backdrop-filter:blur(20px);
+}
+.file-chips{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.fchip{
+  background:rgba(91,79,255,0.12);
+  border:1px solid rgba(91,79,255,0.3);
+  border-radius:8px;padding:4px 10px;font-size:11px;
+  display:flex;align-items:center;gap:6px;color:var(--text2);
+}
+.fchip-rm{cursor:pointer;color:var(--muted);font-size:15px;line-height:1}
+.fchip-rm:hover{color:var(--rose)}
+.irow{display:flex;gap:8px;align-items:flex-end}
+.itxt{
+  flex:1;background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:14px;padding:12px 18px;
+  font-size:14px;color:var(--text);
+  font-family:'Bricolage Grotesque',sans-serif;
+  resize:none;outline:none;
+  max-height:130px;transition:border-color 0.2s;line-height:1.5;
+}
+.itxt:focus{border-color:var(--accent)}
+.itxt::placeholder{color:var(--muted)}
+.ibtn{
+  border:none;border-radius:12px;
+  width:44px;height:44px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;transition:all 0.2s;flex-shrink:0;
+}
+.ibtn-at{background:var(--surface2);border:1px solid var(--border2);color:var(--muted)}
+.ibtn-at:hover{border-color:var(--accent);color:var(--accent)}
+.ibtn-send{
+  background:linear-gradient(135deg,var(--accent),var(--accent-light));
+  box-shadow:0 0 16px rgba(91,79,255,0.35);
+}
+.ibtn-send:hover{opacity:.85;transform:scale(1.06)}
+.hints{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.hint{
+  background:var(--surface2);border:1px solid var(--border);
+  padding:4px 12px;border-radius:20px;
+  font-size:11px;color:var(--muted);cursor:pointer;transition:all 0.2s;
+}
+.hint:hover{border-color:var(--teal);color:var(--teal)}
+
+/* Scrollbar global */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-mark">⬡</div>
+    <div class="logo-text">The<em>Clear</em>Data</div>
+    <span class="logo-badge">AI Beta</span>
+  </div>
+  <div class="tool-bar">
+    <span class="tool on" onclick="setTool('all',this)">Todos</span>
+    <span class="tool" onclick="setTool('excel',this)">Excel</span>
+    <span class="tool" onclick="setTool('sql',this)">SQL</span>
+    <span class="tool" onclick="setTool('python',this)">Python</span>
+    <span class="tool" onclick="setTool('powerbi',this)">Power BI</span>
+    <span class="tool" onclick="setTool('sheets',this)">G.Sheets</span>
+    <span class="tool" onclick="setTool('cloud',this)">BigQuery</span>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-inner">
+
+      <button class="btn-new" onclick="newChat()">
+        ✦ Nueva conversación
+      </button>
+
+      <div class="s-section">
+        <div class="s-label">Subir archivo</div>
+        <div class="upzone" onclick="document.getElementById('fi').click()">
+          <div class="upzone-icon">⬆️</div>
+          <p><strong>CSV, Excel, PDF</strong><br>o arrastra aquí</p>
+        </div>
+        <input type="file" id="fi" style="display:none" multiple
+          accept=".csv,.xlsx,.xls,.pdf,.json,.txt"
+          onchange="handleFiles(event)">
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Acceso rápido</div>
+        <div class="qbtn" onclick="sq('Dame la fórmula VLOOKUP y XLOOKUP en Excel con un ejemplo real de ventas. Explica cada parámetro')">
+          <span class="qi">🔍</span><div><div class="qt">Fórmulas</div><div class="qs">VLOOKUP, INDEX, SUMIFS</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Tengo datos sucios: duplicados, fechas mal formateadas y celdas vacías. Guíame paso a paso para limpiarlos en Excel')">
+          <span class="qi">🧹</span><div><div class="qt">Limpiar datos</div><div class="qs">Duplicados, nulos, formato</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Cómo crear un dashboard profesional en Power BI con KPIs, gráficas de barras, líneas y filtros interactivos. Dame el paso a paso')">
+          <span class="qi">📊</span><div><div class="qt">Dashboard</div><div class="qs">Power BI, Google Sheets</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Escribe una consulta SQL con GROUP BY, JOIN y ORDER BY para analizar ventas por región y mes. Explica cada parte')">
+          <span class="qi">🗄️</span><div><div class="qt">SQL</div><div class="qs">SELECT, JOIN, GROUP BY</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Dame el código Python completo para análisis exploratorio con pandas: cargar CSV, estadísticas, valores nulos y gráficas')">
+          <span class="qi">🐍</span><div><div class="qt">Python / Pandas</div><div class="qs">EDA, gráficas, limpieza</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Cómo estructurar una presentación ejecutiva de análisis de datos: qué slides incluir, cómo mostrar KPIs y contar la historia')">
+          <span class="qi">📑</span><div><div class="qt">Presentaciones</div><div class="qs">Storytelling con datos</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Cómo modelar datos en Power BI: relaciones entre tablas de ventas, clientes y productos. ERD y mejores prácticas')">
+          <span class="qi">🗂️</span><div><div class="qt">Modelado</div><div class="qs">ERD, relaciones, esquemas</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Código Python para crear una gráfica profesional con plotly o matplotlib: colores, etiquetas, títulos y exportar como imagen')">
+          <span class="qi">📈</span><div><div class="qt">Gráficas</div><div class="qs">Plotly, Matplotlib, Excel</div></div>
+        </div>
+        <div class="qbtn" onclick="sq('Cómo conectar Google Sheets con BigQuery y hacer consultas SQL sobre mis datos de Google Sheets')">
+          <span class="qi">☁️</span><div><div class="qt">BigQuery / Cloud</div><div class="qs">SQL en la nube, Google</div></div>
+        </div>
+      </div>
+
+      <div class="s-section">
+        <div class="s-label">Tu progreso</div>
+        <div class="lvl-card">
+          <div class="lvl-top">
+            <span class="lvl-name" id="lvlName">Analista Jr</span>
+            <span class="lvl-pct" id="lvlPct">5%</span>
+          </div>
+          <div class="lbar"><div class="lbar-fill" id="lbarFill"></div></div>
+          <div class="ach" id="a1">🔓 Primeras consultas</div>
+          <div class="ach" id="a2">🔒 5 problemas resueltos</div>
+          <div class="ach" id="a3">🔒 Dominar SQL y Python</div>
+          <div class="ach" id="a4">🔒 Analista Senior 🚀</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat-area">
+    <div class="messages" id="messages">
+      <div class="welcome" id="welcome">
+        <div class="welcome-head">
+          <h2>Tu copiloto de datos 🚀</h2>
+          <p>Experto en Excel, SQL, Python, Power BI y Google Sheets.<br>Pregúntame cualquier cosa o sube un archivo y lo analizo al instante.</p>
+        </div>
+        <div class="sug-grid">
+          <div class="sug" onclick="sq('¿Cuál es la diferencia entre VLOOKUP y XLOOKUP? Dame ejemplos prácticos con datos de ventas')">
+            <div class="sug-emoji">📊</div><div class="sug-t">Fórmulas Excel</div>
+            <div class="sug-s">VLOOKUP, SUMIFS, tablas dinámicas</div>
+          </div>
+          <div class="sug" onclick="sq('Tengo datos de ventas con fechas mal formateadas y valores nulos. Cómo los limpio en Excel paso a paso')">
+            <div class="sug-emoji">🧹</div><div class="sug-t">Limpieza de datos</div>
+            <div class="sug-s">Duplicados, errores, normalización</div>
+          </div>
+          <div class="sug" onclick="sq('Explícame INNER JOIN y LEFT JOIN en SQL con un ejemplo real de clientes, ventas y productos')">
+            <div class="sug-emoji">🗄️</div><div class="sug-t">SQL desde cero</div>
+            <div class="sug-s">SELECT, JOINs, GROUP BY, CTEs</div>
+          </div>
+          <div class="sug" onclick="sq('Cómo hago un análisis exploratorio completo en Python con pandas: cargar datos, estadísticas y gráficas')">
+            <div class="sug-emoji">🐍</div><div class="sug-t">Python & Pandas</div>
+            <div class="sug-s">EDA, visualización, reportes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INPUT -->
+    <div class="input-wrap">
+      <div class="file-chips" id="fchips"></div>
+      <div class="irow">
+        <button class="ibtn ibtn-at" onclick="document.getElementById('fi').click()" title="Adjuntar archivo">📎</button>
+        <textarea class="itxt" id="inp" rows="1"
+          placeholder="Pregúntame sobre Excel, SQL, Python, Power BI... o sube un archivo"
+          onkeydown="onKey(event)" oninput="resize(this)"></textarea>
+        <button class="ibtn ibtn-send" onclick="send()">➤</button>
+      </div>
+      <div class="hints">
+        <span class="hint" onclick="ih('Dame la fórmula para ')">💡 Fórmula</span>
+        <span class="hint" onclick="ih('Explícame paso a paso cómo ')">📚 Paso a paso</span>
+        <span class="hint" onclick="ih('Escribe el código Python para ')">🐍 Python</span>
+        <span class="hint" onclick="ih('Escribe la consulta SQL para ')">🗄️ SQL</span>
+        <span class="hint" onclick="ih('Cómo crear una gráfica de ')">📈 Gráfica</span>
+        <span class="hint" onclick="ih('Cómo limpiar datos de ')">🧹 Limpiar datos</span>
+        <span class="hint" onclick="ih('Cómo presentar en Power BI ')">📊 Power BI</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────
+let tool = 'all';
+let files = [];
+let history = [];
+let qCount = 0;
+
+// ─── Tool selector ────────────────────────────────────────
+function setTool(t, el) {
+  tool = t;
+  document.querySelectorAll('.tool').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+}
+
+// ─── New chat ─────────────────────────────────────────────
+function newChat() {
+  history = [];
+  const msgs = document.getElementById('messages');
+  msgs.innerHTML = '';
+  const w = document.createElement('div');
+  w.className = 'welcome'; w.id = 'welcome';
+  w.innerHTML = `
+    <div class="welcome-head">
+      <h2>Nueva conversación ✨</h2>
+      <p>¿En qué te ayudo hoy? Escribe tu pregunta o sube un archivo.</p>
+    </div>
+    <div class="sug-grid">
+      <div class="sug" onclick="sq('Dame la fórmula VLOOKUP y XLOOKUP con ejemplo práctico')"><div class="sug-emoji">📊</div><div class="sug-t">Fórmulas Excel</div><div class="sug-s">VLOOKUP, SUMIFS, dinámicas</div></div>
+      <div class="sug" onclick="sq('Cómo limpiar datos sucios en Excel: duplicados y nulos')"><div class="sug-emoji">🧹</div><div class="sug-t">Limpiar datos</div><div class="sug-s">Duplicados, errores, formato</div></div>
+      <div class="sug" onclick="sq('Explícame JOIN en SQL con ejemplo de ventas y clientes')"><div class="sug-emoji">🗄️</div><div class="sug-t">SQL</div><div class="sug-s">SELECT, JOINs, GROUP BY</div></div>
+      <div class="sug" onclick="sq('Análisis exploratorio en Python con pandas y matplotlib')"><div class="sug-emoji">🐍</div><div class="sug-t">Python</div><div class="sug-s">EDA, gráficas, limpieza</div></div>
+    </div>`;
+  msgs.appendChild(w);
+}
+
+// ─── File handling ────────────────────────────────────────
+function handleFiles(e) {
+  for (const f of e.target.files) {
+    files.push(f);
+    const id = 'fc_' + Math.random().toString(36).substr(2,6);
+    f._id = id;
+    const ch = document.createElement('div');
+    ch.className = 'fchip'; ch.id = id;
+    ch.innerHTML = `📄 ${f.name} <span class="fchip-rm" onclick="rmFile('${id}','${f.name}')">×</span>`;
+    document.getElementById('fchips').appendChild(ch);
+  }
+}
+function rmFile(id, name) {
+  files = files.filter(f => f.name !== name);
+  const c = document.getElementById(id); if (c) c.remove();
+}
+async function readFile(file) {
+  return new Promise(res => {
+    const r = new FileReader();
+    r.onload = e => res({ name: file.name, content: e.target.result.substring(0, 8000) });
+    r.onerror = () => res({ name: file.name, content: '(no se pudo leer)' });
+    r.readAsText(file);
+  });
+}
+
+// ─── UI helpers ───────────────────────────────────────────
+function resize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 130) + 'px';
+}
+function onKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }
+function ih(t) { const i = document.getElementById('inp'); i.value = t; i.focus(); resize(i); }
+function sq(t) { document.getElementById('inp').value = t; send(); }
+
+// ─── Format AI response ───────────────────────────────────
+function fmt(text) {
+  text = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  text = text.replace(/```(\w+)?\n?([\s\S]*?)```/g,(_,l,c)=>`<pre><code>${c.trim()}</code></pre>`);
+  text = text.replace(/`([^`\n]+)`/g,'<code>$1</code>');
+  text = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  text = text.replace(/\*(.*?)\*/g,'<em>$1</em>');
+  text = text.replace(/^#{1,3} (.+)$/gm,'<strong>$1</strong>');
+  text = text.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+  text = text.replace(/(=\w[\w.,();" ]{4,60})(?=&lt;|<br>|$)/g,'<span class="formula-box">$1</span>');
+  return text;
+}
+
+// ─── Render message ───────────────────────────────────────
+function renderMsg(role, content) {
+  const w = document.getElementById('welcome'); if (w) w.remove();
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div'); div.className = `msg ${role}`;
+  const av = document.createElement('div'); av.className = 'mav';
+  av.textContent = role === 'ai' ? '⬡' : '👤';
+  const bub = document.createElement('div'); bub.className = 'mbub';
+  if (role === 'ai') bub.innerHTML = fmt(content);
+  else bub.textContent = content;
+  div.appendChild(av); div.appendChild(bub);
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div'); div.className = 'msg ai'; div.id = 'typing';
+  div.innerHTML = `<div class="mav">⬡</div><div class="mbub"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
+}
+function hideTyping() { const t = document.getElementById('typing'); if (t) t.remove(); }
+
+// ─── Progress ─────────────────────────────────────────────
+function updateProgress() {
+  qCount++;
+  const pct = Math.min(5 + qCount * 4, 100);
+  document.getElementById('lbarFill').style.width = pct + '%';
+  document.getElementById('lvlPct').textContent = pct + '%';
+  if (qCount >= 1)  { document.getElementById('a1').textContent = '✅ Primeras consultas'; document.getElementById('a1').className = 'ach done'; }
+  if (qCount >= 5)  { document.getElementById('a2').textContent = '✅ 5 problemas resueltos'; document.getElementById('a2').className = 'ach done'; }
+  if (qCount >= 12) { document.getElementById('a3').textContent = '✅ Dominando SQL y Python'; document.getElementById('a3').className = 'ach done'; document.getElementById('lvlName').textContent = 'Analista Mid'; }
+  if (qCount >= 25) { document.getElementById('a4').textContent = '✅ ¡Analista Senior! 🚀'; document.getElementById('a4').className = 'ach done'; document.getElementById('lvlName').textContent = 'Analista Senior 🚀'; }
+}
+
+// ─── Send message ─────────────────────────────────────────
+async function send() {
+  const inp = document.getElementById('inp');
+  const text = inp.value.trim();
+  const attachedFiles = [...files];
+  if (!text && attachedFiles.length === 0) return;
+
+  let display = text;
+  if (attachedFiles.length) display += ` [📎 ${attachedFiles.map(f=>f.name).join(', ')}]`;
+
+  renderMsg('user', display);
+  inp.value = ''; inp.style.height = 'auto';
+  files = []; document.getElementById('fchips').innerHTML = '';
+  showTyping(); updateProgress();
+
+  // Build user content with file data if any
+  let userContent = display;
+  if (attachedFiles.length > 0) {
+    userContent += '\n\n[ARCHIVOS ADJUNTOS PARA ANALIZAR:\n';
+    for (const file of attachedFiles) {
+      const fc = await readFile(file);
+      userContent += `\nArchivo: ${fc.name}\nContenido:\n${fc.content}\n---`;
+    }
+    userContent += '\n]\nPor favor analiza estos datos: dame estadísticas, insights específicos y recomendaciones accionables.';
+  }
+
+  history.push({ role: 'user', content: userContent });
+
+  try {
+    // 🔒 Llamada al backend seguro — tu API Key nunca sale del servidor
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages: history.slice(-12),
+        tool: tool
+      })
+    });
+
+    const data = await res.json();
+    hideTyping();
+
+    if (!res.ok || data.error) {
+      renderMsg('ai', '⚠️ Error del servidor. Por favor intenta de nuevo en un momento.');
+      return;
+    }
+
+    history.push({ role: 'assistant', content: data.reply });
+    renderMsg('ai', data.reply);
+
+  } catch (err) {
+    hideTyping();
+    renderMsg('ai', '⚠️ Error de conexión. Verifica tu internet e intenta de nuevo.');
+  }
+}
+</script>
+</body>
+</html>
