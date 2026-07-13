@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laura Cruz · Data Analyst | TheClearData</title>
+<meta name="description" content="Portafolio de Laura Cruz — Data Analyst Jr especializada en logística, Power BI, SQL, Python e IA. 10+ años en logística internacional.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#1a56db;--blue-dark:#1e429f;--blue-light:#ebf5ff;--text:#111827;--text2:#6b7280;--text3:#9ca3af;--bg:#f9fafb;--white:#fff;--border:#e5e7eb;--radius:8px;--radius-lg:12px}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--white)}
+a{text-decoration:none;color:inherit}
+.btn-p{background:var(--blue);color:#fff;border:none;border-radius:var(--radius);padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s}
+.btn-p:hover{background:var(--blue-dark)}
+.btn-s{background:var(--white);color:var(--text);border:1px solid var(--border);border-radius:var(--radius);padding:9px 20px;font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;transition:background 0.15s}
+.btn-s:hover{background:var(--bg)}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 40px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:500}
+.nav-mark{width:30px;height:30px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13px;color:var(--text2)}
+.nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;gap:10px;align-items:center}
+
+.hero{padding:72px 40px 64px;background:var(--white);border-bottom:1px solid var(--border)}
+.avail{display:inline-flex;align-items:center;gap:7px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:20px;padding:5px 14px;font-size:12px;color:#166534;margin-bottom:22px}
+.avail-dot{width:7px;height:7px;border-radius:50%;background:#16a34a}
+.hero-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start;max-width:900px}
+.hero h1{font-size:36px;font-weight:500;color:var(--text);line-height:1.2;margin-bottom:14px}
+.hero h1 span{color:var(--blue)}
+.hero-sub{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:28px;max-width:540px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.skills-row{display:flex;gap:7px;flex-wrap:wrap}
+.skill{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--text2);display:flex;align-items:center;gap:5px}
+.skill-dot{width:6px;height:6px;border-radius:50%}
+.hero-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;min-width:220px;text-align:center}
+.hero-avatar{width:72px;height:72px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:500;margin:0 auto 14px}
+.hero-card-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:3px}
+.hero-card-role{font-size:12px;color:var(--text2);margin-bottom:12px}
+.hero-card-links{display:flex;flex-direction:column;gap:6px}
+.hero-card-link{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--text2)}
+.hero-card-link i{color:var(--blue);font-size:15px;width:18px}
+
+.section{padding:56px 40px;border-bottom:1px solid var(--border)}
+.section-label{font-size:11px;font-weight:500;color:var(--blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.section-title{font-size:24px;font-weight:500;color:var(--text);margin-bottom:8px}
+.section-sub{font-size:14px;color:var(--text2);margin-bottom:32px;line-height:1.7;max-width:540px}
+
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.proj-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color 0.15s;display:flex;flex-direction:column}
+.proj-card:hover{border-color:#93c5fd;box-shadow:0 4px 16px rgba(26,86,219,0.08)}
+.proj-thumb{height:110px;display:flex;align-items:center;justify-content:center;position:relative}
+.proj-live{position:absolute;top:10px;right:10px;font-size:10px;font-weight:500;padding:3px 9px;border-radius:4px}
+.proj-body{padding:16px;flex:1;display:flex;flex-direction:column}
+.proj-tags{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap}
+.ptag{font-size:10px;font-weight:500;padding:2px 8px;border-radius:4px}
+.proj-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px}
+.proj-desc{font-size:12px;color:var(--text2);line-height:1.6;flex:1;margin-bottom:12px}
+.proj-result{font-size:12px;color:var(--blue);font-weight:500;display:flex;align-items:center;gap:5px}
+.proj-footer{padding:10px 16px;border-top:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:space-between}
+.stack{display:flex;gap:4px;flex-wrap:wrap}
+.stk{font-size:10px;color:var(--text3);background:var(--white);border:1px solid var(--border);border-radius:4px;padding:2px 6px}
+.proj-link{font-size:11px;color:var(--blue);display:flex;align-items:center;gap:3px}
+
+.about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:start}
+.about-text p{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:14px}
+.exp-list{display:flex;flex-direction:column;gap:0}
+.exp-item{display:flex;gap:14px}
+.exp-line{display:flex;flex-direction:column;align-items:center;padding-top:4px}
+.exp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.exp-dot.active{background:var(--blue)}
+.exp-dot.past{background:var(--border)}
+.exp-bar{width:2px;flex:1;background:var(--border);margin-top:4px;min-height:20px}
+.exp-content{padding-bottom:24px;flex:1}
+.exp-title{font-size:13px;font-weight:500;color:var(--text)}
+.exp-co{font-size:12px;color:var(--text2);margin-top:2px}
+.exp-date{font-size:11px;color:var(--text3);margin-top:2px;margin-bottom:8px}
+.exp-items{list-style:none;display:flex;flex-direction:column;gap:4px}
+.exp-items li{font-size:12px;color:var(--text2);line-height:1.5;padding-left:14px;position:relative}
+.exp-items li::before{content:"·";position:absolute;left:0;color:var(--blue)}
+.edu-list{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.edu-item{background:var(--bg);border-radius:var(--radius);padding:12px 14px}
+.edu-title{font-size:12px;font-weight:500;color:var(--text)}
+.edu-inst{font-size:11px;color:var(--text2);margin-top:2px}
+.edu-date{font-size:10px;color:var(--text3);margin-top:2px}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:24px}
+.skill-item{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;display:flex;align-items:center;gap:8px}
+.skill-item i{color:var(--blue);font-size:16px}
+.skill-item-name{font-size:12px;font-weight:500;color:var(--text)}
+.skill-item-level{font-size:10px;color:var(--text3);margin-top:1px}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+.stat{background:var(--bg);border-radius:var(--radius);padding:14px;text-align:center}
+.stat-n{font-size:26px;font-weight:500;color:var(--blue)}
+.stat-l{font-size:11px;color:var(--text2);margin-top:3px}
+
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}
+.contact-info{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.ci{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text2)}
+.ci i{color:var(--blue);font-size:18px;width:22px}
+.ci a{color:var(--blue)}
+.contact-form{display:flex;flex-direction:column;gap:10px}
+.contact-form input,.contact-form textarea,.contact-form select{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:var(--radius);font-family:inherit;font-size:13px;color:var(--text);background:var(--white);outline:none;transition:border-color 0.15s}
+.contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--blue)}
+.contact-form textarea{height:100px;resize:none}
+
+footer{padding:28px 40px;background:var(--bg);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-left{font-size:13px;color:var(--text2)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:12px;color:var(--text3)}
+.footer-links a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <div class="nav-mark">LC</div>
+    Laura Cruz · TheClearData
+  </div>
+  <div class="nav-links">
+    <a href="#proyectos">Proyectos</a>
+    <a href="#sobre">Sobre mí</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="nav-right">
+    <a href="mailto:lauraocruzr@gmail.com" class="btn-s" style="font-size:12px;padding:7px 14px">
+      <i class="ti ti-mail"></i> Contáctame
+    </a>
+    <a href="#proyectos" class="btn-p" style="font-size:12px;padding:7px 14px">
+      <i class="ti ti-eye"></i> Ver proyectos
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="avail"><div class="avail-dot"></div>Disponible para proyectos freelance · Remoto / Híbrido / Presencial</div>
+  <div class="hero-grid">
+    <div>
+      <h1>Data Analyst especializada en <span>logística e IA</span></h1>
+      <p class="hero-sub">Transformo datos operativos en dashboards, automatizaciones y análisis accionables. 10+ años en logística internacional FCL + Data Analytics + IA generativa.</p>
+      <div class="hero-btns">
+        <a href="#proyectos" class="btn-p"><i class="ti ti-eye"></i>Ver mis proyectos</a>
+        <a href="#contacto" class="btn-s"><i class="ti ti-mail"></i>Trabajemos juntos</a>
+        <a href="https://app.thecleardata.com" class="btn-s"><i class="ti ti-robot"></i>Asistente IA</a>
+      </div>
+      <div class="skills-row">
+        <div class="skill"><div class="skill-dot" style="background:#f2c811"></div>Power BI</div>
+        <div class="skill"><div class="skill-dot" style="background:#cc2927"></div>SQL</div>
+        <div class="skill"><div class="skill-dot" style="background:#3776ab"></div>Python</div>
+        <div class="skill"><div class="skill-dot" style="background:#4285f4"></div>BigQuery</div>
+        <div class="skill"><div class="skill-dot" style="background:#217346"></div>Excel avanzado</div>
+        <div class="skill"><div class="skill-dot" style="background:#0f9d58"></div>Google Sheets</div>
+        <div class="skill"><div class="skill-dot" style="background:#7c3aed"></div>IA generativa</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-avatar">LC</div>
+      <div class="hero-card-name">Laura Olivia Cruz Romero</div>
+      <div class="hero-card-role">Data Analyst Jr · BI Analyst<br>Logística & Comercio Internacional</div>
+      <div class="hero-card-links">
+        <div class="hero-card-link"><i class="ti ti-map-pin"></i>CDMX · México</div>
+        <div class="hero-card-link"><i class="ti ti-mail"></i>lauraocruzr@gmail.com</div>
+        <div class="hero-card-link"><i class="ti ti-phone"></i>55 7610 5685</div>
+        <div class="hero-card-link"><i class="ti ti-brand-linkedin"></i>
+          <a href="https://www.linkedin.com/in/laura-c114575198" target="_blank" style="color:var(--blue)">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section class="section" id="proyectos" style="background:var(--bg)">
+  <div class="section-label">Proyectos</div>
+  <div class="section-title">Trabajos reales, resultados medibles</div>
+  <div class="section-sub">Cada proyecto resuelve un problema real de datos. Haz click para explorar el detalle.</div>
+  <div class="projects-grid">
+
+    <div class="proj-card">
+      <div class="proj-thumb" style="background:#eff6ff">
+        <i class="ti ti-robot" style="color:#1a56db;font-size:36px"></i>
+        <div class="proj-live" style="background:#1a56db;color:#fff">En producción</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag" style="background:#eff6ff;color:#1e429f">IA generativa</span>
+          <span class="ptag" style="background:#f5f3ff;color:#5b21b6">Producto real</span>
+        </div>
+        <div class="proj-title">Asistente de análisis de datos con IA</div>
+        <div class="proj-desc">Herramienta web con chat IA especializado en Excel, SQL, Python y Power BI. Laboratorio SQL real con DuckDB, cheat sheets interactivos y descargas de resultados.</div>
+        <div class="proj-result"><i class="ti ti-external-link" style="font-size:12px"></i>app.thecleardata.com</div>
+      </div>
+      <div class="proj-footer">
+        <div class="stack"><span class="stk">JavaScript</span><span class="stk">Claude API</span><span class="stk">Vercel</span></div>
+        <a href="https://app.thecleardata.com" class="proj-link" target="_blank"><i class="ti ti-arrow-right" style="font-size:12px"></i>Ver</a>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb" style="background:#fef9c3">
+        <i class="ti ti-chart-bar" style="color:#854d0e;font-size:36px"></i>
+        <div class="proj-live" style="background:#854d0e;color:#fff">Capstone</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag" style="background:#fef9c3;color:#854d0e">Power BI</span>
+          <span class="ptag" style="background:#fdf2f8;color:#9d174d">Python</span>
+          <span class="ptag" style="background:#fff1f2;color:#9f1239">SQL</span>
+        </div>
+        <div class="proj-title">Análisis logístico marítimo · ASIAIMPORT</div>
+        <div class="proj-desc">Dashboard Power BI con 5 páginas y 22 medidas DAX. Random Forest para predicción de cancelaciones. Holt exponential smoothing para costos. Esquema estrella con 7 tablas.</div>
+        <div class="proj-result"><i class="ti ti-trending-up" style="font-size:12px"></i>+43% costo detectado · 100% cancelaciones explicadas</div>
+      </div>
+      <div class="proj-footer">
+        <div class="stack"><span class="stk">Power BI</span><span class="stk">Python</span><span class="stk">SQL</span></div>
+        <span class="proj-link"><i class="ti ti-arrow-right" style="font-size:12px"></i>Ver</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb" style="background:#f0fdf4">
+        <i class="ti ti-table" style="color:#166534;font-size:36px"></i>
+        <div class="proj-live" style="background:#166534;color:#fff">En proceso</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag" style="background:#f0fdf4;color:#166534">Excel</span>
+          <span class="ptag" style="background:#f0fdf4;color:#166534">Python</span>
+        </div>
+        <div class="proj-title">Análisis de datos · Excel y Python</div>
+        <div class="proj-desc">Proyectos de limpieza, transformación y análisis exploratorio de datos logísticos. Tablas dinámicas, macros VBA y visualizaciones con pandas y plotly.</div>
+        <div class="proj-result"><i class="ti ti-clock" style="font-size:12px"></i>Próximamente</div>
+      </div>
+      <div class="proj-footer">
+        <div class="stack"><span class="stk">Excel</span><span class="stk">pandas</span><span class="stk">plotly</span></div>
+        <span class="proj-link"><i class="ti ti-arrow-right" style="font-size:12px"></i>Ver</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-thumb" style="background:#eff6ff">
+        <i class="ti ti-cloud" style="color:#1a56db;font-size:36px"></i>
+        <div class="proj-live" style="background:#6366f1;color:#fff">Próximo</div>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="ptag" style="background:#eff6ff;color:#1e429f">BigQuery</span>
+          <span class="ptag" style="background:#f5f3ff;color:#5b21b6">Looker Studio</span>
+        </div>
+        <div class="proj-title">Análisis en Google Cloud · BigQuery</div>
+        <div class="proj-desc">Análisis de datos logísticos a escala usando SQL en BigQuery, particiones por fecha y visualización en Looker Studio con datos públicos de importaciones.</div>
+        <div class="proj-result"><i class="ti ti-clock" style="font-size:12px"></i>En construcción</div>
+      </div>
+      <div class="proj-footer">
+        <div class="stack"><span class="stk">BigQuery</span><span class="stk">SQL</span><span class="stk">Looker</span></div>
+        <span class="proj-link"><i class="ti ti-arrow-right" style="font-size:12px"></i>Ver</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section class="section" id="sobre">
+  <div class="section-label">Sobre mí</div>
+  <div class="about-grid">
+
+    <div>
+      <div class="section-title">Analista de datos con raíces en logística real</div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-n">10+</div><div class="stat-l">Años en logística</div></div>
+        <div class="stat"><div class="stat-n">6+</div><div class="stat-l">Herramientas</div></div>
+        <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Trabajo remoto</div></div>
+      </div>
+      <div class="about-text">
+        <p>Soy profesional con más de 10 años de experiencia en logística marítima FCL, evolucionando hacia análisis de datos y Business Intelligence. Conozco los datos de logística desde adentro — sé qué información es crítica, cuáles son los cuellos de botella y cómo transformar datos dispersos en visibilidad real.</p>
+        <p>Combino esa experiencia operativa con herramientas de análisis de datos e inteligencia artificial para entregar soluciones que realmente funcionan para empresas logísticas, forwarders e importadores.</p>
+      </div>
+
+      <div style="margin-top:28px">
+        <div style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Experiencia profesional</div>
+        <div class="exp-list">
+          <div class="exp-item">
+            <div class="exp-line"><div class="exp-dot active"></div><div class="exp-bar"></div></div>
+            <div class="exp-content">
+              <div class="exp-title">Torre de Control · Especialista Logística Internacional</div>
+              <div class="exp-co">Eternity México Forwarder SA de CV</div>
+              <div class="exp-date">Dic 2017 — Actual</div>
+              <ul class="exp-items">
+                <li>Gestión end-to-end de embarques internacionales FCL</li>
+                <li>Análisis de KPIs: TEUs, tiempos de tránsito, zarpes y entregas</li>
+                <li>Elaboración de dashboards operativos y reportes ejecutivos</li>
+                <li>Seguimiento de bookings con 5 oficinas en Asia</li>
+                <li>Asignación de navieras según volumen semanal/mensual</li>
+                <li>Control de contratos, espacios y fletes para métricas</li>
+              </ul>
+            </div>
+          </div>
+          <div class="exp-item">
+            <div class="exp-line"><div class="exp-dot active"></div><div class="exp-bar"></div></div>
+            <div class="exp-content">
+              <div class="exp-title">Data Analyst · TheClearData</div>
+              <div class="exp-co">Proyecto propio · Freelance</div>
+              <div class="exp-date">2024 — Actual</div>
+              <ul class="exp-items">
+                <li>Asistente IA de análisis de datos en producción</li>
+                <li>Dashboards Power BI para análisis logístico</li>
+                <li>Automatización y análisis con Python y SQL</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Herramientas y tecnologías</div>
+      <div class="skills-grid">
+        <div class="skill-item"><i class="ti ti-chart-bar"></i><div><div class="skill-item-name">Power BI + DAX</div><div class="skill-item-level">Dashboards · Modelado</div></div></div>
+        <div class="skill-item"><i class="ti ti-database"></i><div><div class="skill-item-name">SQL</div><div class="skill-item-level">Consultas · Análisis</div></div></div>
+        <div class="skill-item"><i class="ti ti-brand-python"></i><div><div class="skill-item-name">Python · pandas</div><div class="skill-item-level">EDA · Automatización</div></div></div>
+        <div class="skill-item"><i class="ti ti-cloud"></i><div><div class="skill-item-name">BigQuery</div><div class="skill-item-level">SQL en la nube</div></div></div>
+        <div class="skill-item"><i class="ti ti-table"></i><div><div class="skill-item-name">Excel avanzado</div><div class="skill-item-level">VBA · Power Query</div></div></div>
+        <div class="skill-item"><i class="ti ti-brand-google"></i><div><div class="skill-item-name">Google Sheets</div><div class="skill-item-level">QUERY · Apps Script</div></div></div>
+        <div class="skill-item"><i class="ti ti-robot"></i><div><div class="skill-item-name">IA generativa</div><div class="skill-item-level">Claude · Gemini</div></div></div>
+        <div class="skill-item"><i class="ti ti-truck"></i><div><div class="skill-item-name">Logística FCL</div><div class="skill-item-level">KPIs · Control Tower</div></div></div>
+      </div>
+
+      <div style="margin-top:28px">
+        <div style="font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">Educación y formación</div>
+        <div class="edu-list">
+          <div class="edu-item">
+            <div class="edu-title">Bootcamp Análisis de Datos & BI</div>
+            <div class="edu-inst">Unicornio Academy · SQL, Power BI, Python, visualización</div>
+            <div class="edu-date">Completado</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-title">IA Aplicada al Comercio Exterior</div>
+            <div class="edu-inst">TradeMasters · Diplomado</div>
+            <div class="edu-date">Completado</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-title">Programa de IA Aplicada</div>
+            <div class="edu-inst">Cámara de Comercio</div>
+            <div class="edu-date">Completado</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-title">Excel + Power BI + Visuales</div>
+            <div class="edu-inst">OfficeFácil</div>
+            <div class="edu-date">Completado</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-title">Licenciatura en Comercio Internacional</div>
+            <div class="edu-inst">Universidad CUDEC</div>
+            <div class="edu-date">2013 – 2016</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;background:var(--bg);border-radius:var(--radius);padding:14px 16px">
+        <div style="font-size:12px;font-weight:500;color:var(--text);margin-bottom:4px">Idiomas</div>
+        <div style="font-size:12px;color:var(--text2)">Español — nativo · Inglés — intermedio (en formación con IA)</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section" id="contacto" style="background:var(--bg)">
+  <div class="section-label">Contacto</div>
+  <div class="contact-grid">
+    <div>
+      <div class="section-title">Trabajemos juntos</div>
+      <div class="section-sub">¿Tienes datos que no sabes cómo aprovechar? ¿Reportes manuales que quieres automatizar? Cuéntame tu reto — primera consulta gratuita.</div>
+      <div class="contact-info">
+        <div class="ci"><i class="ti ti-mail"></i><a href="mailto:lauraocruzr@gmail.com">lauraocruzr@gmail.com</a></div>
+        <div class="ci"><i class="ti ti-phone"></i>55 7610 5685</div>
+        <div class="ci"><i class="ti ti-brand-whatsapp"></i><a href="https://wa.me/5557610585" target="_blank" style="color:var(--blue)">WhatsApp directo</a></div>
+        <div class="ci"><i class="ti ti-brand-linkedin"></i><a href="https://www.linkedin.com/in/laura-c114575198" target="_blank" style="color:var(--blue)">linkedin.com/in/laura-c114575198</a></div>
+        <div class="ci"><i class="ti ti-brand-instagram"></i><a href="https://instagram.com/l_l_laurinchis" target="_blank" style="color:var(--blue)">@l_l_laurinchis</a></div>
+        <div class="ci"><i class="ti ti-map-pin"></i>CDMX · Remoto / Híbrido / Presencial</div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <input type="text" placeholder="Tu nombre y empresa">
+      <input type="email" placeholder="Correo electrónico">
+      <select>
+        <option value="">¿En qué te puedo ayudar?</option>
+        <option>Dashboard Power BI</option>
+        <option>Análisis de datos logísticos</option>
+        <option>Automatización de reportes</option>
+        <option>KPIs y Supply Chain</option>
+        <option>Consulta general</option>
+      </select>
+      <textarea placeholder="Cuéntame tu reto de datos..."></textarea>
+      <button class="btn-p" style="justify-content:center;width:100%">
+        <i class="ti ti-send"></i> Enviar mensaje
+      </button>
+      <p style="font-size:11px;color:var(--text3);text-align:center">Respondo en menos de 24 horas · Primera consulta gratuita</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Laura Cruz · TheClearData · lauraocruzr@gmail.com · 55 7610 5685</div>
+  <div class="footer-links">
+    <a href="#proyectos">Proyectos</a>
+    <a href="#sobre">Sobre mí</a>
+    <a href="https://app.thecleardata.com">Asistente IA</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</footer>
+
+</body>
+</html>
